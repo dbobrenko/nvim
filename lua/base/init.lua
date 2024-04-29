@@ -1,3 +1,3 @@
 require("base.opt")
-require("base.remap")
+require("base.mappings")
 require("base.lazy_init")

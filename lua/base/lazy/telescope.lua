@@ -31,7 +31,8 @@ return {
 			builtin.grep_string({ search = vim.fn.input("Grep > ") })
 		end, { desc = "[F]ind with [G]rep" })
 		vim.keymap.set("n", "<leader>ff", builtin.live_grep, { desc = "[F]ind [F]iles with grep" })
-		vim.keymap.set("n", "<leader>b", builtin.buffers, { desc = "Find existing [B]uffers" })
+		vim.keymap.set("n", "<leader>bl", builtin.buffers, { desc = "[L]ist Buffers" })
+		vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "List [B]uffers" })
 		vim.keymap.set("n", "<leader>f.", builtin.oldfiles, { desc = "[F]ind Recent Files (. for repeat)" })
 		vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "[F]ind [D]iagnostics" })
 		vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "[F]ind [R]esume" })
@@ -47,9 +48,9 @@ return {
 		end, { desc = "[F]ind in [O]pen Files" })
 
 		-- Shortcut for searching your Neovim configuration files
-		vim.keymap.set("n", "<leader>sn", function()
+		vim.keymap.set("n", "<leader>fn", function()
 			builtin.find_files({ cwd = vim.fn.stdpath("config") })
-		end, { desc = "[S]earch [N]eovim files" })
+		end, { desc = "[F]ind [N]eovim files" })
 		-- vim.keymap.set("n", "<leader>pws", function()
 		-- 	local word = vim.fn.expand("<cword>")
 		-- 	builtin.grep_string({ search = word })

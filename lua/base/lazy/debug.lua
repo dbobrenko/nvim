@@ -56,6 +56,7 @@ return {
 		vim.keymap.set("n", "<F3>", dap.step_over, { desc = "Debug: Step Over" })
 		vim.keymap.set("n", "<leader>dr", dap.repl.open, { desc = "Debug: REPL" })
 		vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "Debug: Toggle [B]reakpoint" })
+		vim.keymap.set("n", "<leader>dd", dap.toggle_breakpoint, { desc = "Debug: Toggle Breakpoint" })
 		vim.keymap.set("n", "<leader>dc", dap.clear_breakpoints, { desc = "Debug: [C]lear Breakpoints" })
 		vim.keymap.set("n", "<leader>dl", dap.list_breakpoints, { desc = "Debug: [L]ist Breakpoints" })
 		vim.keymap.set("n", "<leader>ds", function()

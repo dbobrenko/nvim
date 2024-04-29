@@ -6,6 +6,20 @@ local map = vim.keymap.set
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
+vim.keymap.set("n", "<S-h>", "<C-o>", { desc = "Move backward" })
+vim.keymap.set("n", "<M-h>", "<C-o>", { desc = "Move backward" })
+vim.keymap.set("n", "<S-l>", "<C-i>", { desc = "Move forward" })
+vim.keymap.set("n", "<M-l>", "<C-i>", { desc = "Move forward" })
+
+-- Prevent stripping EOL on save
+--vim.api.nvim_command("autocmd BufNewFile,BufRead,BufWritePost * setlocal fixeol")
+-- vim.opt_global.fixeol = true
+-- vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead", "BufWritePost" }, {
+-- 	group = "_formatting",
+-- 	pattern = "*",
+-- 	command = "setl fixeol",
+-- })
+
 -- Resize with arrows.
 local resize_up = function()
 	require("smart-splits").resize_up(2)
@@ -36,7 +50,7 @@ vim.keymap.set("n", "<leader>hm", "<cmd>messages<cr>", { desc = "Show neovim [M]
 vim.keymap.set("n", "<leader>hl", vim.diagnostic.setloclist, { desc = "Diagnostic Quickfix [L]ist" })
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous Diagnostic message" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next Diagnostic message" })
-vim.keymap.set("n", "<leader>hp", vim.diagnostic.open_float, { desc = "Diagnostic [P]review error" })
+vim.keymap.set("n", "<leader>hh", vim.diagnostic.open_float, { desc = "Diagnostic [H]over error" })
 vim.api.nvim_set_keymap(
 	"n",
 	"<leader>he",
@@ -45,10 +59,12 @@ vim.api.nvim_set_keymap(
 )
 
 -- Buffers.
-map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
-map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
+map("n", "<leader>bp", "<cmd>bprevious<cr>", { desc = "Previous Buffer" })
+map("n", "<leader>bn", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
+map("n", "<M-j>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 map("n", "]b", "<cmd>bnext<cr>", { desc = "Next Buffer" })
+map("n", "<M-k>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 
 -- Cursor stay at its location while joining line.
