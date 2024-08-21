@@ -126,6 +126,35 @@ return {
 		-- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
 		vim.keymap.set("n", "<F7>", dapui.toggle, { desc = "Debug: See last session result." })
 
+		-- Automatically finds and uses the nearest root directory (e.g., where .git or other project files are)
+		local function project_root()
+			local util = require("lspconfig/util")
+			return util.find_git_ancestor(vim.fn.getcwd()) or vim.fn.getcwd()
+		end
+
+		-- Configuration to run the current Python script
+		dap.configurations.python = {
+		  {
+			type = "python", -- the type here defined must match the name of the adapter. `dap-python` configures it as `python`
+			request = "launch",
+			name = "Launch Current File",
+			program = "${file}", -- This will use the current file
+			pythonPath = function()
+			  return "python"
+			end,
+			cwd = project_root, -- Use the project root as the working directory
+			env = {
+				PYTHONPATH = function()
+					-- Get existing PYTHONPATH, append project root, and handle the case where PYTHONPATH is not set
+					local existing_pythonpath = vim.env.PYTHONPATH or ""
+					if existing_pythonpath ~= "" then
+						existing_pythonpath = existing_pythonpath .. ":"
+					end
+					return existing_pythonpath .. project_root()
+				end
+			},
+		  },
+		}
 		dap.listeners.after.event_initialized["dapui_config"] = dapui.open
 		dap.listeners.before.event_terminated["dapui_config"] = dapui.close
 		dap.listeners.before.event_exited["dapui_config"] = dapui.close

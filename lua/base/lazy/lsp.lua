@@ -91,9 +91,24 @@ LSP = {
 			group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
 			callback = function(event)
 				vim.lsp.buf.clear_references()
-				vim.api.nvim_clear_autocmds({ group = "lsp-highlight", buffer = event.buf })
+
+				-- Check if the 'lsp-highlight' group exists before clearing it
+				local success, _ = pcall(function()
+					vim.api.nvim_clear_autocmds({ group = "lsp-highlight", buffer = event.buf })
+				end)
+
+				if not success then
+					vim.notify("Failed to clear autocmds for group 'lsp-highlight'", vim.log.levels.WARN)
+				end
 			end,
 		})
+		-- vim.api.nvim_create_autocmd("LspDetach", {
+		-- 	group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
+		-- 	callback = function(event)
+		-- 		vim.lsp.buf.clear_references()
+		-- 		vim.api.nvim_clear_autocmds({ group = "lsp-highlight", buffer = event.buf })
+		-- 	end,
+		-- })
 
 		-- LSP servers and clients are able to communicate to each other what features they support.
 		--  By default, Neovim doesn"t support everything that is in the LSP specification.
@@ -155,11 +170,14 @@ LSP = {
 			"bashls",
 			"yamlls",
 			"jsonls",
-			"black",
-			"debugpy",
 			"isort",
-			"pyright",
-			"pylint",
+			-- Python
+			"debugpy",
+			"black",
+			"ruff",
+			-- "ruff-lsp",
+			"python-lsp-server"  -- Supports LSP navigation
+			-- "pylint",
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
