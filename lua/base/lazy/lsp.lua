@@ -9,6 +9,7 @@ LSP = {
 		{ "j-hui/fidget.nvim", opts = {} },
 		-- used for completion, annotations and signatures of Neovim apis
 		{ "folke/neodev.nvim", opts = {} },
+		{ "jose-elias-alvarez/null-ls.nvim" },
 	},
 	config = function()
 		-- If you"re wondering about lsp vs treesitter, you can check out the wonderfully
@@ -153,6 +154,21 @@ LSP = {
 				},
 			},
 		}
+
+
+	-- Make ruff and black respect project settings defined in pyproject.toml
+	local null_ls = require("null-ls")
+        null_ls.setup({
+            sources = {
+                null_ls.builtins.formatting.black.with({
+                    extra_args = { "--config", "pyproject.toml" },
+                }),
+                null_ls.builtins.diagnostics.ruff.with({
+                    extra_args = { "--config", "pyproject.toml" },
+                }),
+            },
+        })
+
 
 		-- Ensure the servers and tools above are installed
 		--  To check the current status of installed tools and/or manually install

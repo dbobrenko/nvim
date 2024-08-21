@@ -8,8 +8,12 @@ vim.g.netrw_winsize = 25
 vim.opt.nu = true
 vim.opt.relativenumber = false
 vim.opt.mouse = "a"
-vim.opt.clipboard = "unnamedplus"
-
+if vim.fn.has("unnamedplus") == 1 then
+    vim.opt.clipboard = "unnamedplus"
+else
+	-- Mac OS
+    vim.opt.clipboard = "unnamed"
+end
 -- Decrease update time
 vim.opt.updatetime = 250
 
