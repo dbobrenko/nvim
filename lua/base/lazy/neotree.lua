@@ -11,6 +11,7 @@ return {
 	},
 	init = function()
 		vim.api.nvim_create_autocmd("BufEnter", {
+			-- group = vim.api.nvim_create_augroup("SetCWD", { clear = true }),
 			-- make a group to be able to delete it later
 			group = vim.api.nvim_create_augroup("NeoTreeInit", { clear = true }),
 			callback = function()

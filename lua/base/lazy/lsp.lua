@@ -9,7 +9,7 @@ LSP = {
 		{ "j-hui/fidget.nvim", opts = {} },
 		-- used for completion, annotations and signatures of Neovim apis
 		{ "folke/neodev.nvim", opts = {} },
-		{ "jose-elias-alvarez/null-ls.nvim" },
+		-- { "jose-elias-alvarez/null-ls.nvim" },
 	},
 	config = function()
 		-- If you"re wondering about lsp vs treesitter, you can check out the wonderfully
@@ -157,18 +157,35 @@ LSP = {
 
 
 	-- Make ruff and black respect project settings defined in pyproject.toml
-	local null_ls = require("null-ls")
-        null_ls.setup({
-            sources = {
-                null_ls.builtins.formatting.black.with({
-                    extra_args = { "--config", "pyproject.toml" },
-                }),
-                null_ls.builtins.diagnostics.ruff.with({
-                    extra_args = { "--config", "pyproject.toml" },
-                }),
-            },
-        })
+	local lspconfig = require("lspconfig")
+	local lspconfig_util = require("lspconfig.util")
+	-- Function to determine the root directory
+	local function get_root_dir(fname)
+		return lspconfig_util.root_pattern("pyproject.toml", ".git", "setup.py")(fname) or lspconfig_util.path.dirname(fname)
+	end
 
+	-- Configure the Python LSP server (like `pylsp`) to use `black` and `ruff`
+	lspconfig.pylsp.setup({
+		root_dir = get_root_dir,
+		settings = {
+			pylsp = {
+				plugins = {
+					pycodestyle = { enabled = false },
+					flake8 = { enabled = false },
+					mypy = { enabled = false },
+					pylint = { enabled = false },
+					black = {
+						enabled = true,
+						line_length = 120
+					},
+					ruff = {
+						enabled = true,
+						line_length = 120
+					},
+				},
+			},
+		},
+	})
 
 		-- Ensure the servers and tools above are installed
 		--  To check the current status of installed tools and/or manually install
@@ -186,13 +203,14 @@ LSP = {
 			"bashls",
 			"yamlls",
 			"jsonls",
-			"isort",
 			-- Python
 			"debugpy",
 			"black",
 			"ruff",
+			"pyright",
+			"isort",
 			-- "ruff-lsp",
-			"python-lsp-server"  -- Supports LSP navigation
+			-- "python-lsp-server"  -- Supports LSP navigation
 			-- "pylint",
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
