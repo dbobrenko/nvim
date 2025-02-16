@@ -54,3 +54,22 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 vim.opt.colorcolumn = "120"
+
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})
+
+-- Disable two windows on ":"
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  pattern = "*.txt",
+  callback = function()
+    if vim.bo.filetype == "help" then
+      vim.cmd("only")
+    end
+  end,
+})

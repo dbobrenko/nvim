@@ -22,6 +22,7 @@ return {
 	config = function()
 		local dap = require("dap")
 		local dapui = require("dapui")
+		require("dap").set_log_level("DEBUG")
 
 		require("mason-nvim-dap").setup({
 			-- Makes a best effort to setup the various debuggers with
@@ -35,8 +36,10 @@ return {
 			-- You'll need to check that you have the required things installed
 			-- online, please don't ask me how to install them :)
 			ensure_installed = {
-				-- Update this to ensure that you have the debuggers for the langs you want
-				"delve",
+				-- python debugger
+				"debugpy",
+				-- go debugger
+				-- "delve",
 			},
 		})
 
@@ -125,6 +128,7 @@ return {
 
 		-- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
 		vim.keymap.set("n", "<F7>", dapui.toggle, { desc = "Debug: See last session result." })
+		vim.keymap.set("n", "<leader>ds", dapui.toggle, { desc = "Debug: See last session result." })
 
 		-- Automatically finds and uses the nearest root directory (e.g., where .git or other project files are)
 		local function project_root()
@@ -140,9 +144,13 @@ return {
 			name = "Launch Current File",
 			program = "${file}", -- This will use the current file
 			pythonPath = function()
-			  return "python"
+			local python = vim.fn.exepath("python")
+				if python == "" then
+						python = "python3"  -- fallback if not found
+				end
+				return python
 			end,
-			cwd = project_root, -- Use the project root as the working directory
+				cwd = project_root, -- Use the project root as the working directory
 			env = {
 				PYTHONPATH = function()
 					-- Get existing PYTHONPATH, append project root, and handle the case where PYTHONPATH is not set
