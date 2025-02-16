@@ -59,8 +59,8 @@ vim.api.nvim_set_keymap(
 )
 
 -- Buffers.
-map("n", "<leader>bp", "<cmd>bprevious<cr>", { desc = "Previous Buffer" })
-map("n", "<leader>bn", "<cmd>bnext<cr>", { desc = "Next Buffer" })
+-- map("n", "<leader>bp", "<cmd>bprevious<cr>", { desc = "Previous Buffer" })
+-- map("n", "<leader>bn", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 map("n", "<M-j>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 map("n", "]b", "<cmd>bnext<cr>", { desc = "Next Buffer" })

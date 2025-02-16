@@ -36,7 +36,7 @@ return {
         },
         window = {
           mappings = {
-            -- Copy the relative path of the selected file (Shift + y)
+            -- Copy the relative path of the selected file (Shift + Y)
             ["Y"] = function(state)
               local node = state.tree:get_node()
               if node and node.path then
@@ -45,8 +45,8 @@ return {
                 vim.notify("Copied relative path: " .. relative_path)
               end
             end,
-            -- Copy the absolute path of the selected file (Ctrl + y)
-            ["<C-y>"] = function(state)
+            -- Copy the absolute path of the selected file (Shift + Ctrl + Y)
+            ["<C-Y>"] = function(state)
               local node = state.tree:get_node()
               if node and node.path then
                 vim.fn.setreg("+", node.path)
@@ -58,6 +58,8 @@ return {
       },
     })
   end,
-  -- Toggle neo-tree with <leader>e in a floating window
+  -- Toggle neo-tree with <leader>e in a floating window (default view)
   vim.keymap.set("n", "<leader>e", "<Cmd>Neotree float<CR>"),
+  -- Open neo-tree in buffers view (same as switching to buffers tab with >) using <leader>b
+  vim.keymap.set("n", "<leader>b", "<Cmd>Neotree float source=buffers<CR>"),
 }

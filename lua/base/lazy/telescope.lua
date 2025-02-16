@@ -36,7 +36,7 @@ return {
 			builtin.grep_string({ search = vim.fn.input("Grep > ") })
 		end, { desc = "[F]ind with [G]rep" })
 		vim.keymap.set("n", "<leader>ff", builtin.live_grep, { desc = "[F]ind [F]iles with grep" })
-		vim.keymap.set("n", "<leader>bl", builtin.buffers, { desc = "[L]ist Buffers" })
+		-- vim.keymap.set("n", "<leader>bl", builtin.buffers, { desc = "[L]ist Buffers" })
 		vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "List [B]uffers" })
 		vim.keymap.set("n", "<leader>f.", builtin.oldfiles, { desc = "[F]ind Recent Files (. for repeat)" })
 		vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "[F]ind [D]iagnostics" })
