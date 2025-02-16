@@ -18,6 +18,10 @@ return {
 			-- pickers = {}
 			extensions = {
 				["ui-select"] = { require("telescope.themes").get_dropdown() },
+				live_grep_args = {
+					auto_quoting = true, -- enable/disable auto-quoting
+				}
+
 			},
 		})
 		local builtin = require("telescope.builtin")
@@ -25,6 +29,7 @@ return {
 		-- Enable Telescope extensions if they are installed
 		pcall(require("telescope").load_extension, "fzf")
 		pcall(require("telescope").load_extension, "ui-select")
+		pcall(require("telescope").load_extension, "live_grep_args")
 		vim.keymap.set("n", "<leader><leader>", builtin.find_files, { desc = "Find Files" })
 		vim.keymap.set("n", "<leader>fg", builtin.git_files, { desc = "[F]ind [G]it files" })
 		vim.keymap.set("n", "<leader>fg", function()
@@ -35,7 +40,7 @@ return {
 		vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "List [B]uffers" })
 		vim.keymap.set("n", "<leader>f.", builtin.oldfiles, { desc = "[F]ind Recent Files (. for repeat)" })
 		vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "[F]ind [D]iagnostics" })
-		vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "[F]ind [R]esume" })
+		-- vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "[F]ind [R]esume" })
 		vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "[F]ind current [W]ord" })
 		vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "[F]ind [K]eymaps" })
 		-- It"s also possible to pass additional configuration options.

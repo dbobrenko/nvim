@@ -11,7 +11,7 @@ vim.opt.mouse = "a"
 if vim.fn.has("unnamedplus") == 1 then
     vim.opt.clipboard = "unnamedplus"
 else
-	-- Mac OS
+-- Mac OS
     vim.opt.clipboard = "unnamed"
 end
 -- Decrease update time
