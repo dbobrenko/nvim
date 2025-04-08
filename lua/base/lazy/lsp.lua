@@ -32,7 +32,23 @@ LSP = {
 				map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
 				-- Jump to the implementation of the word under your cursor.
 				--  Useful when your language has ways of declaring types without an actual implementation.
-				map("gi", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+				-- map("gi", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+				vim.keymap.set("n", "gi", function()
+				  local clients = vim.lsp.get_clients()
+				  local support_impl = false
+				  for _, client in ipairs(clients) do
+					if client.server_capabilities.implementationProvider then
+					  support_impl = true
+					  break
+					end
+				  end
+				  if support_impl then
+					require("telescope.builtin").lsp_implementations()
+				  else
+					print("Implementation provider not supported by the active language server")
+				  end
+				end, { desc = "[G]oto [I]mplementation" })
+
 				-- Jump to the type of the word under your cursor.
 				--  Useful when you"re not sure what type a variable is and you want to see
 				--  the definition of its *type*, not where it was *defined*.

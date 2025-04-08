@@ -54,6 +54,7 @@ return {
 		vim.keymap.set("n", "<F5>", dap.continue, { desc = "Debug: Start/Continue" })
 		--vim.lsp.buffer_mappings.normal_mode["<F5>"] = { continue, "Debug: Start/Continue" }
 		vim.keymap.set("n", "<S-F5>", dap.terminate, { desc = "Debug: Terminate" })
+		vim.keymap.set("n", "<F17>", dap.terminate, { desc = "Debug: Terminate" })
 		vim.keymap.set("n", "<F6>", dap.pause, { desc = "Debug: Pause" })
 		vim.keymap.set("n", "<F4>", dap.step_into, { desc = "Debug: Step Into" })
 		vim.keymap.set("n", "<F3>", dap.step_over, { desc = "Debug: Step Over" })
