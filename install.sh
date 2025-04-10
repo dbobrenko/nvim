@@ -6,6 +6,8 @@ set -e
 if [ "$(uname)" = "Linux" ]; then
   echo "[INFO] Installing dependencies on Linux..."
   sudo apt update
+  sudo add-apt-repository ppa:neovim-ppa/unstable -y
+  sudo apt install neovim
   sudo apt install -y zip ripgrep npm python3-pip neovim
 elif [ "$(uname)" = "Darwin" ]; then
   echo "[INFO] Installing dependencies on macOS..."
@@ -47,6 +49,9 @@ pip3 install \
   python-lsp-black \
   ruff-lsp \
   pynvim
+
+# Move tmux config.
+mv .tmux.conf ${HOME}/.tmux.conf
 
 echo
 echo "Neovim & LSP installation complete!"
