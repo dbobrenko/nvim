@@ -51,7 +51,7 @@ pip3 install \
   pynvim
 
 # Move tmux config.
-mv .tmux.conf ${HOME}/.tmux.conf
+cp .tmux.conf $HOME/
 
 echo
 echo "Neovim & LSP installation complete!"
