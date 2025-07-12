@@ -53,6 +53,11 @@ pip3 install \
 # Move tmux config.
 cp .tmux.conf $HOME/
 
+# Avante.
+cd ~/.local/share/nvim/lazy/
+git clone git@github.com:yetone/avante.nvim.git
+BUILD_FROM_SOURCE=true make
+
 echo
 echo "Neovim & LSP installation complete!"
 echo "You can now run 'nvim' to open Neovim."

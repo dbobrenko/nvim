@@ -3,8 +3,8 @@ vim.g.maplocalleader = " "
 local map = vim.keymap.set
 
 -- Move selected rows with J/K.
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selected rows down" })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selected rows up" })
 
 vim.keymap.set("n", "<S-h>", "<C-o>", { desc = "Move backward" })
 vim.keymap.set("n", "<M-h>", "<C-o>", { desc = "Move backward" })
@@ -68,34 +68,34 @@ map("n", "<M-k>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 
 -- Cursor stay at its location while joining line.
-vim.keymap.set("n", "J", "mzJ`z")
+vim.keymap.set("n", "J", "mzJ`z", { desc = "Join lines without moving cursor" })
 
 -- Half-page down/up moves cursor to the middle of the screen.
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll half page down and center" })
+vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll half page up and center" })
 
 -- Search terms stay in the middle of the screen.
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set("n", "n", "nzzzv", { desc = "Move to next search match and center" })
+vim.keymap.set("n", "N", "Nzzzv", { desc = "Move to previous search match and center" })
 
 -- Reset highlights on search.
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlighting" })
 
 -- Replace selected characters with paste, without replacing current clipboard.
--- Replace ReplaceReplaceReplaceReplaceReplaceReplaceReplaceReplace characters with paste, without replacing current clipboard.
-vim.keymap.set("x", "p", [["_dP]])
-vim.keymap.set("x", "<leader>p", [["_dP]])
+-- Replace characters with paste, without replacing current clipboard.
+vim.keymap.set("x", "p", [["_dP]], { desc = "Replace selection without affecting register" })
+vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Replace selection without affecting register" })
 
 -- Copy to system clipboard.
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y"]], { desc = "Yank to system clipboard" })
+vim.keymap.set("n", "<leader>Y", [["+Y"]], { desc = "Yank line to system clipboard" })
 
 -- Delete without clipboard.
-vim.keymap.set({ "n", "v" }, "<leader>D", [["_d]])
-vim.keymap.set({ "n", "v" }, "<leader>X", [["_x]])
+vim.keymap.set({ "n", "v" }, "<leader>D", [["_d"]], { desc = "Delete without yanking" })
+vim.keymap.set({ "n", "v" }, "<leader>X", [["_x"]], { desc = "Cut without yanking" })
 
 -- Disable vim Q keybinding.
-vim.keymap.set("n", "Q", "<nop>")
+vim.keymap.set("n", "Q", "<nop>", { desc = "Disable Ex mode" })
 
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz", { desc = "Next Quickfix item" })
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz", { desc = "Previous Quickfix item" })
